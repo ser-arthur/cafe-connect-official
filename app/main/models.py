@@ -2,21 +2,20 @@ from app.main import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 class Cafe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), unique=True, nullable=False)
+    name = db.Column(db.String(100), unique=True, nullable=False)  # Increased length to 100
     map_url = db.Column(db.String(350), nullable=False)
-    city = db.Column(db.String(30), nullable=False)
-    country = db.Column(db.String(20), nullable=False)
-    currency = db.Column(db.String(10), nullable=True)
-    coffee_price = db.Column(db.String(10), nullable=False)
+    city = db.Column(db.String(100), nullable=False)  # Increased length to 100
+    country = db.Column(db.String(100), nullable=False)  # Increased length to 100
+    currency = db.Column(db.String(50), nullable=True)  # Increased length to 50
+    coffee_price = db.Column(db.String(50), nullable=False)  # Increased length to 50
     wifi_strength = db.Column(db.Integer, nullable=True)
     seats = db.Column(db.Integer, nullable=False)
     has_sockets = db.Column(db.Boolean, nullable=False)
     has_toilet = db.Column(db.Boolean, nullable=False)
-    images = db.Column(db.String, nullable=True)
-    full_review = db.Column(db.String(300), nullable=True)
+    images = db.Column(db.String, nullable=True)  # Consider using `Text` if it's large content
+    full_review = db.Column(db.String(1000), nullable=True)  # Increased length to 1000
     full_rating = db.Column(db.Integer, nullable=False)
 
     def to_dict(self):
@@ -29,9 +28,9 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(5000), nullable=False)
+    username = db.Column(db.String(100), unique=True, nullable=False)  # Increased length to 100
+    email = db.Column(db.String(255), unique=True, nullable=False)  # Increased length to 255 (typical max for email)
+    password_hash = db.Column(db.String(5000), nullable=False)  # You can keep it as is if you need this length
     is_admin = db.Column(db.Boolean, default=False)
 
     def set_password(self, password):
