@@ -2,10 +2,10 @@ import os
 
 class Config:
     # Secret key for CSRF protection and session management
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'it-is-what-it-is'
-    API_KEY = os.environ.get('API_KEY') or 'guess-it-right'
+    SECRET_KEY = os.environ['SECRET_KEY']
+    API_KEY = os.environ['API_KEY']
 
-    # Database URI for SQLAlchemy
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///cc-database.db'
+    # Database URI for SQLAlchemy (environment variable provided by Render for PostgreSQL)
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']  # 'DATABASE_URL' is automatically set by Render.
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
